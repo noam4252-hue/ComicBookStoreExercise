@@ -52,7 +52,15 @@ public class ComicStore
     /// </summary>
     public void AddOrUpdateComic(ComicBook newComic)
     {
-        // TODO: התלמידים יכתבו את הקוד כאן
+        foreach (ComicBook comic in Inventory)
+        {
+            if (comic.Title == newComic.Title)
+            {
+                comic.StockQuantity += newComic.StockQuantity;
+                return;
+            }
+        }
+        Inventory.Add(newComic);
     }
 
     /// <summary>
@@ -61,7 +69,14 @@ public class ComicStore
     /// </summary>
     public bool UpdateStock(string title, int newQuantity)
     {
-        // TODO: התלמידים יכתבו את הקוד כאן
+        foreach (ComicBook comic in Inventory)
+        {
+            if (comic.Title == title)
+            {
+                comic.StockQuantity = newQuantity;
+                return true;
+            }
+        }
         return false;
     }
 
@@ -70,8 +85,15 @@ public class ComicStore
     /// </summary>
     public List<ComicBook> SearchByHero(string heroName)
     {
-        // TODO: התלמידים יכתבו את הקוד כאן
-        return new List<ComicBook>();
+        List<ComicBook> result = new List<ComicBook>();
+        foreach (ComicBook comic in Inventory)
+        {
+            if (comic.Hero == heroName)
+            {
+                result.Add(comic);
+            }
+        }
+        return result;
     }
 
     /// <summary>
@@ -79,7 +101,13 @@ public class ComicStore
     /// </summary>
     public bool IsInStock(string title)
     {
-        // TODO: התלמידים יכתבו את הקוד כאן
+       foreach (ComicBook comic in Inventory)
+        {
+            if (comic.Title == title && comic.StockQuantity > 0)
+            {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -88,7 +116,11 @@ public class ComicStore
     /// </summary>
     public Dictionary<string, int> GetStockDictionary()
     {
-        // TODO: התלמידים יכתבו את הקוד כאן
+        Dictionary<string, int> stock = new Dictionary<string, int>();
+        foreach (ComicBook comic in Inventory)
+        {
+            stock.Add(comic.Title, comic.StockQuantity);
+        }
         return new Dictionary<string, int>();
     }
 
@@ -99,7 +131,11 @@ public class ComicStore
     /// </summary>
     public int GetQuantityFromDictionary(string title)
     {
-        // TODO: התלמידים יכתבו את הקוד כאן (חובה לזמן את GetStockDictionary())
+        Dictionary<string, int> stock = GetStockDictionary();
+        if (stock.ContainsKey(title))
+        {
+            return stock[title];
+        }
         return -1;
     }
 
