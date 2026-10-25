@@ -121,7 +121,7 @@ public class ComicStore
         {
             stock.Add(comic.Title, comic.StockQuantity);
         }
-        return new Dictionary<string, int>();
+        return stock;
     }
 
     /// <summary>
